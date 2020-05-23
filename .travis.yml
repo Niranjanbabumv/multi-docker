@@ -14,7 +14,7 @@ after_success:
         - docker build -t niranjan/multi-server ./server
         - docker build -t niranjan/multi-worker ./worker
 #Log in to the docker hub 
-        - echo "$DOCKER_PWD" | docker -u "$DOCKER_ID" --password-stdin
+        - echo "$DOCKER_PWD" | docker -u "$DOCKER_USERID" --password-stdin
         # Take those images and push to the docker hug
         - docker push niranjan/multi-client
         - docker push niranjan/multi-nginx
