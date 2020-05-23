@@ -1,0 +1,16 @@
+sudo: required
+services:
+        - docker
+
+before_install:
+        - docker build -t niranjan/multi-docker -f ./cient/Dockerfile.dev ./client
+
+script:
+        - docker run niranjan/multi-docker npm test -- --coverage
+
+after_success
+        - docker build -t niranjan/multi-client ./client
+        - docker build -t niranajn/multi-nginx ./nginx
+        - docker build -t niranjan/multi-server ./server
+        - docker build -t niranjan/multi-worker ./worker
+
