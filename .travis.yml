@@ -8,9 +8,17 @@ before_install:
 script:
         - docker run niranjan/multi-docker npm test -- --coverage
 
-after_success
+after_success:
         - docker build -t niranjan/multi-client ./client
         - docker build -t niranajn/multi-nginx ./nginx
         - docker build -t niranjan/multi-server ./server
         - docker build -t niranjan/multi-worker ./worker
+#Log in to the docker hub 
+        - echo "$DOCKER_PWD" | docker -u "$DOCKER_ID" --password-stdin
+        # Take those images and push to the docker hug
+        - docker push niranjan/multi-client
+        - docker push niranjan/multi-nginx
+        - docker push niranjan/multi-server
+        - docker push niranjan/multi-worker
+ 
 
